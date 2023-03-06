@@ -1,84 +1,79 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import ActionTypes from "../../store/types";
 
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
+
+import {Question} from '../index'
 
 export function GameBoard() {
   const dispatch = useDispatch();
-//   const questions = useSelector((state) => state.questions);
-    const [questions, setQuestions] = useState([])
- 
-
+  const questions = useSelector((state) => state.questions);
+  const user = useSelector((state)=> state.user)
 
   useEffect(() => {
-    async function serverQuestiondata() {
+     function serverQuestiondata() {
         try {
-          const response = await fetch("http://localhost:3001/questions", {
-            method: "GET",
+          fetch("http://localhost:3001/questions", {
+            method: "POST",
             headers: { "Content-Type": "application/json" },
             credentials: "include",
-          });
-    
-          const result = await response.json();
-          setQuestions(result)
-
-          
-  
+            body: user
+          })
+          .then(response => response.json()).then(result => dispatch({
+            type: ActionTypes.SERVER_QUESTION_DATA,
+            payload: result,
+          }))
         } catch (error) {
           console.log(error);
         }
       }
       serverQuestiondata()
-  }, []);
+  }, [user]);
 
-        dispatch({
-            type: ActionTypes.SERVER_QUESTION_DATA,
-            payload: questions,
-          });
-
+      
 
   return (
-    <Container>
-      <Row>
-        Марвел:
+     <div className="d-flex justify-content-center mt-5">
+    <div className="d-grid" style={{gridTemplateRows: "1fr 1fr 1fr ", width: '60%'}}>
+      <div className="d-grid" style={{gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr"}}>
+        <div>Марвел:</div>
+        
         {questions.map((question) => {
           if (question.category === "Марвел") {
             return (
-              <Col key={question.id}>
-                <Button>{question.points}</Button>
-              </Col>
+              <div key={question.id}>
+                <Question  question={question}>{question.points}</Question>
+              </div>
             );
           }
         })}
-      </Row>
-      <Row>
-        Гарри Поттер:
+      </div>
+      <div className="d-grid" style={{gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr"}}>
+        <div>Гарри Поттер:</div>
         {questions.map((question) => {
           if (question.category === "Гарри Поттер") {
             return (
-              <Col key={question.id}>
-                <Button>{question.points}</Button>
-              </Col>
+              <div key={question.id}>
+                <Question question={question}>{question.points}</Question>
+              </div>
             );
           }
         })}
-      </Row>
-      <Row>
-        Пиво:
+      </div>
+      <div className="d-grid" style={{gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr"}}>
+        <div>Пиво:</div>
+        
         {questions.map((question) => {
           if (question.category === "Пиво") {
             return (
-              <Col key={question.id}>
-                <Button>{question.points}</Button>
-              </Col>
+              <div key={question.id}>
+                <Question question={question}>{question.points}</Question>
+              </div>
             );
           }
         })}
-      </Row>
-    </Container>
+      </div>
+    </div>
+    </div>
   );
 }

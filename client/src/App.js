@@ -1,21 +1,25 @@
 import './App.css';
+import React, { useEffect } from 'react';
 import { Routes, Link, Route, Outlet, useNavigate} from 'react-router-dom'
-import {GameBoard , Login, Registration} from './components'
+import {GameBoard , Login, Registration,Question} from './components'
 import {Button} from "react-bootstrap";
 import {useSelector,useDispatch} from 'react-redux'
 import ATypes from './store/types';
 
 
 function App() {
-  const user = useSelector((state) => state.user)
-  console.log(user);
+  const user =useSelector((state) => state.user)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const auth =localStorage.getItem('user') 
 
+  useEffect( ()=>{
   if (auth) {
-    dispatch({type: ATypes.SET_USER, payload: JSON.stringify(localStorage.getItem('user')) })
+    dispatch({type: ATypes.SET_USER, payload: localStorage.getItem('user') })
   }
+})
+
+
   async function logout(){
     const response = await fetch('http://localhost:3001/logout', {credentials: 'include'})
     const result = await response.json()

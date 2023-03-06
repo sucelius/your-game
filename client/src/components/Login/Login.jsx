@@ -22,10 +22,9 @@ export default function Login() {
        body: JSON.stringify(formData),
      })
      const result = await response.json();
-     console.log(result);
      const user = result.name
      if (user) {
-      localStorage.setItem('user', JSON.stringify(result));
+      localStorage.setItem('user', result);
       dispatch({ type: ATypes.SET_USER, payload: result });
       setFormData({ email: '',password: '' });
       navigate('/');

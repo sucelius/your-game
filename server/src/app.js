@@ -32,7 +32,6 @@ const sessionConfig = {
 // записывает в переменную req.session.user данные из прилетевшей куки, если такая же была найдена в кук базе данных.
 // если куки нету или она не найдена в session storage, то req.session.user будет равно unfefined
 app.use(session(sessionConfig));
-
 app.use('/', indexRouter);
 
 app.listen(PORT, () => {
