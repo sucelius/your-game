@@ -1,5 +1,6 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import ActionTypes from "../../store/types";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -7,61 +8,75 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
 export function GameBoard() {
-
-  const questions = useSelector((state) => state.questions);
-
-//   async function serverQuestiondata () {
-//     try {
-        
-//         const response = await fetch('http://localhost:3001/questions' , {
-//             method: 'GET',
-//             headers: { 'Content-Type': 'application/json' },
-//             credentials: 'include',
-            
-//         })
+  const dispatch = useDispatch();
+//   const questions = useSelector((state) => state.questions);
+    const [questions, setQuestions] = useState([])
+ 
 
 
-//         console.log(response)
+  useEffect(() => {
+    async function serverQuestiondata() {
+        try {
+          const response = await fetch("http://localhost:3001/questions", {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+          });
+    
+          const result = await response.json();
+          setQuestions(result)
 
+          
+  
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      serverQuestiondata()
+  }, []);
 
-//     } catch (error) {
-//         console.log(error);
-//     }
-//   }
-
-//   serverQuestiondata () 
+        dispatch({
+            type: ActionTypes.SERVER_QUESTION_DATA,
+            payload: questions,
+          });
 
 
   return (
     <Container>
       <Row>
-      Stupid:
+        Марвел:
         {questions.map((question) => {
-            if (question.category === 'Stupid') {
-                return(
-                    <Col><Button>{question.points}</Button></Col>
-                )
-            }
+          if (question.category === "Марвел") {
+            return (
+              <Col key={question.id}>
+                <Button>{question.points}</Button>
+              </Col>
+            );
+          }
         })}
       </Row>
       <Row>
-        Mems:
+        Гарри Поттер:
         {questions.map((question) => {
-            if (question.category === 'Mems') {
-                return(
-                    <Col><Button>{question.points}</Button></Col>
-                )
-            }
+          if (question.category === "Гарри Поттер") {
+            return (
+              <Col key={question.id}>
+                <Button>{question.points}</Button>
+              </Col>
+            );
+          }
         })}
       </Row>
       <Row>
-      Space:
-      {questions.map((question) => {
-            if (question.category === 'Space') {
-                return(
-                    <Col><Button>{question.points}</Button></Col>
-                )
-            }
+        Пиво:
+        {questions.map((question) => {
+          if (question.category === "Пиво") {
+            return (
+              <Col key={question.id}>
+                <Button>{question.points}</Button>
+              </Col>
+            );
+          }
         })}
       </Row>
     </Container>
