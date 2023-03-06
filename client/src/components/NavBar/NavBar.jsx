@@ -3,9 +3,9 @@ import {Navbar, Container, Nav, NavDropdown} from 'react-bootstrap';
 import { useSelector } from "react-redux";
 
 export function NavBar() {
- 
+
   const user = useSelector((state) => state.user)
-  
+
   return (
 
     <Navbar bg="light" expand="lg">
@@ -16,7 +16,7 @@ export function NavBar() {
 
           <Nav className="me-auto">
             {user
-              ? <Nav.Link href="/signin">Log out</Nav.Link>
+              ? <Link to="/"><div>Log out</div></Link>
               : <>
                 <Nav.Link href="/signin">Sign In</Nav.Link>
                 <Nav.Link href="/signup">Sign Up</Nav.Link>
