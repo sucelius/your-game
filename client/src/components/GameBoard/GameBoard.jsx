@@ -10,6 +10,26 @@ export function GameBoard() {
 
   const questions = useSelector((state) => state.questions);
 
+//   async function serverQuestiondata () {
+//     try {
+        
+//         const response = await fetch('http://localhost:3001/questions' , {
+//             method: 'GET',
+//             headers: { 'Content-Type': 'application/json' },
+//             credentials: 'include',
+            
+//         })
+
+
+//         console.log(response)
+
+
+//     } catch (error) {
+//         console.log(error);
+//     }
+//   }
+
+//   serverQuestiondata () 
 
 
   return (
