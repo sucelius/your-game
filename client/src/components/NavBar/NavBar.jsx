@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Navbar, Container, Nav, NavDropdown} from 'react-bootstrap';
 
-function NavBar() {
+export function NavBar() {
   const [user, setUser] = useState(false)
   return (
 
@@ -27,4 +27,3 @@ function NavBar() {
 }
 
 
-export default NavBar;
