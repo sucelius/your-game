@@ -4,25 +4,21 @@ import {Navbar, Container, Nav, NavDropdown} from 'react-bootstrap';
 function NavBar() {
   const [user, setUser] = useState(false)
   return (
-    // <Nav>
-    //   <Nav.Item>
-    //     <Nav.Link href="/">Logo</Nav.Link>
-    //   </Nav.Item>
-    //   <Nav.Item>
-    //     <Nav.Link href="/signin">Sign In</Nav.Link>
-    //   </Nav.Item>
-    //   <Nav.Item>
-    //     <Nav.Link href="/signup">Sign Up</Nav.Link>
-    //   </Nav.Item>
-    // </Nav>
+
     <Navbar bg="light" expand="lg">
       <Container>
         <Navbar.Brand href="#home">Logo</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
+
           <Nav className="me-auto">
-            <Nav.Link href="/signin">Sign In</Nav.Link>
-            <Nav.Link href="/signup">Sign Up</Nav.Link>
+            {user
+              ? <Nav.Link href="/signin">Log out</Nav.Link>
+              : <>
+                <Nav.Link href="/signin">Sign In</Nav.Link>
+                <Nav.Link href="/signup">Sign Up</Nav.Link>
+              </>
+            }
           </Nav>
         </Navbar.Collapse>
       </Container>
