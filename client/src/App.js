@@ -8,19 +8,20 @@ import ATypes from './store/types';
 
 function App() {
   const user = useSelector((state) => state.user)
+  console.log(user);
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const auth =JSON.stringify(localStorage.getItem('user')) 
+  const auth =localStorage.getItem('user') 
 
   if (auth) {
-    dispatch({type: ATypes.SET_USER, payload: auth})
+    dispatch({type: ATypes.SET_USER, payload: JSON.stringify(localStorage.getItem('user')) })
   }
   async function logout(){
     const response = await fetch('http://localhost:3001/logout', {credentials: 'include'})
     const result = await response.json()
     if (result) {
       localStorage.clear()
-      dispatch({type: ATypes.SET_USER, payload: null})
+      dispatch({type: ATypes.SET_USER, payload: ''})
       navigate('/')
     }
   }
