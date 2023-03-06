@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Modal} from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
@@ -8,21 +8,15 @@ export default function Question(question) {
   const handleClose = () => setShow(false);
   const gameBoard = useSelector((state)=> state.games)
 
-  const user = JSON.parse(useSelector((state) => state.user))
+  const user = useSelector((state) => state.user)
   const state = gameBoard.filter(el=> el.questionId === question.question.id)[0].isTouch
 
-  const start = () => { 
+  const start = () => {
     setShow(true);
-    // const timer = setTimeout(async () =>{
-    //   await fetch('http://localhost:3001/check/endTimer', {
-    //     method: 'POST',
-    //     headers: {'Content-Type': 'application/json'},
-    //     credentials: 'include',
-    //     body: JSON.stringify({questionId: question.question.id, userId: user.id})
-    // })
-    // }, 1000)
-    
+    console.log('show')
+
   }
+
 
 function hendleAnswer(){
  if( question.question.answer.toLowerCase() === answer.toLowerCase()) {
@@ -36,11 +30,11 @@ function hendleChange(event){
 
   return (
     <div >
-      {state ? 
+      {state ?
       <Button style={{width: '100%', borderRadius:'0', border: '1px solid rgb(255 255 0)'}} type='button' variant="primary" onClick={start} disabled  >
         {question.question.points}
-      </Button> 
-      : 
+      </Button>
+      :
       <Button style={{width: '100%', borderRadius:'0', border: '1px solid rgb(255 255 0)'}} type='button' variant="primary" onClick={start}  >
         {question.question.points}
       </Button> }

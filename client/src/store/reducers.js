@@ -18,7 +18,7 @@ const initialState = {
 console.log(initialState);
 
 export const reducers = (state = initialState, action) => {
-    console.log(action)
+    console.log('action-->', action)
   switch (action.type) {
     case ATypes.SET_USER:{
       // const a = JSON.parse(action.payload)

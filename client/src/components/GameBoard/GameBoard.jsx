@@ -11,33 +11,31 @@ export function GameBoard() {
   const user = useSelector((state)=> state.user)
 
   useEffect(() => {
-     function serverQuestiondata() {
-        try {
-          fetch("http://localhost:3001/questions", {
+     // function serverQuestiondata() {
+        fetch("http://localhost:3001/questions", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             credentials: "include",
-            body: user
+            body: JSON.stringify(user)
           })
           .then(response => response.json()).then(result => dispatch({
             type: ActionTypes.SERVER_QUESTION_DATA,
             payload: result,
           }))
-        } catch (error) {
-          console.log(error);
-        }
-      }
-      serverQuestiondata()
+          .catch((error) => console.log(error))
+
+
+      // serverQuestiondata()
   }, [user]);
 
-      
+
 
   return (
      <div className="d-flex justify-content-center mt-5">
     <div className="d-grid" style={{gridTemplateRows: "1fr 1fr 1fr ", width: '60%'}}>
       <div className="d-grid" style={{gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr"}}>
         <div>Марвел:</div>
-        
+
         {questions.map((question) => {
           if (question.category === "Марвел") {
             return (
@@ -62,7 +60,7 @@ export function GameBoard() {
       </div>
       <div className="d-grid" style={{gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr"}}>
         <div>Пиво:</div>
-        
+
         {questions.map((question) => {
           if (question.category === "Пиво") {
             return (
