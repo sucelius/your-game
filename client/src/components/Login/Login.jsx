@@ -1,19 +1,21 @@
-import React, { useState } from 'react';
-import { Button, Form,Container } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import React, {useState} from 'react';
+import {Button, Form, Container} from 'react-bootstrap';
+import {useNavigate} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
 import ATypes from '../../store/types';
+
 export default function Login() {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [formData, setFormData] = useState({  email: '', password: '' });
+  const [formData, setFormData] = useState({email: '', password: ''});
 
   function hendleChange(event) {
-    setFormData({ ...formData, [event.target.name]: event.target.value });
+    setFormData({...formData, [event.target.name]: event.target.value});
   }
 
   async function formSubmitHandler() {
+
    try {
      const response = await fetch('http://localhost:3001/signin', {
        method: 'POST',
@@ -33,38 +35,44 @@ export default function Login() {
    } catch (error) {
     console.log(error);
    }
-  }
-  return (
-    <Container>
-    <Form>
-      <Form.Group className="mb-3" >
-        <Form.Label>Your email </Form.Label>
-        <Form.Control  onChange={hendleChange} name='email' type="email" placeholder="Enter email" value={formData.email} />
-        <Form.Text className="text-muted">
-        </Form.Text>
-      </Form.Group>
 
-      <Form.Group className="mb-3" >
-        <Form.Label htmlFor="inputPassword5">Password</Form.Label>
-        <Form.Control
-         placeholder="Enter password"
-         value={formData.password}
-         onChange={hendleChange}
-         name='password'
-           type="password"
-           id="inputPassword5"
-           aria-describedby="passwordHelpBlock"
-        />
-        <Form.Text id="passwordHelpBlock" muted>
-          Your password must be 8-20 characters long, contain letters and numbers,
-          and must not contain spaces, special characters, or emoji.
-        </Form.Text>
-      </Form.Group>
-      <Button onClick={formSubmitHandler} variant="primary" type="button">
-        Sing In!
-      </Button>
-   
-    </Form>
-    </Container>
+  }
+
+  return (
+    <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
+      <div
+        className="w-full bg-white rounded-lg shadow dark:border md:mt-8 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+        <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+          <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+            Sign in and account
+          </h1>
+          <form className="space-y-4 md:space-y-6">
+            <div className="mb-3">
+              <input
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                onChange={hendleChange} name='email' type="email"
+                placeholder="Enter email" value={formData.email}/>
+            </div>
+            <div className="pt-2">
+              <input
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Enter password"
+                value={formData.password}
+                onChange={hendleChange}
+                name='password'
+                type="password"
+                id="inputPassword5"
+                aria-describedby="passwordHelpBlock"
+              />
+            </div>
+            <button className="w-full text-white bg-blue-600 disabled:bg-gray-400 disabled:opacity-75 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onClick={formSubmitHandler}
+                    variant="primary" type="button">
+              Sing In!
+            </button>
+
+          </form>
+        </div>
+      </div>
+    </div>
   )
 }
