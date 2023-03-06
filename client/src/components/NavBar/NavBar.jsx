@@ -1,15 +1,16 @@
-import React, {useState} from 'react';
-import {Navbar, Container, Nav, NavDropdown} from 'react-bootstrap';
-import { useSelector } from "react-redux";
+// import React, {useState} from 'react';
+import {Navbar} from 'react-bootstrap';
+
+
 
 export function NavBar() {
 
-  const user = useSelector((state) => state.user)
+  
 
   return (
 
     <Navbar bg="light" expand="lg">
-      <Container>
+      {/* <Container>
         <Navbar.Brand href="#home">Logo</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
@@ -24,7 +25,7 @@ export function NavBar() {
             }
           </Nav>
         </Navbar.Collapse>
-      </Container>
+      </Container> */}
     </Navbar>
   );
 }
