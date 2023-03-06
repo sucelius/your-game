@@ -8,6 +8,7 @@ import ATypes from './store/types';
 
 function App() {
   const user = useSelector((state) => state.user)
+  console.log(user);
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const auth =JSON.stringify(localStorage.getItem('user')) 
