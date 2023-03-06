@@ -21,7 +21,40 @@ const initialState = {
     points: 100,
     category: 'Stupid'
 
-  }],
+  },
+  {
+    id:2,
+    question: 'What????',
+    answer: 'Answer is oops',
+    points: 100,
+    category: 'Mems'
+
+  },
+  {
+    id:2,
+    question: 'What????',
+    answer: 'Answer is oops',
+    points: 200,
+    category: 'Space'
+
+  },
+  {
+    id:2,
+    question: 'What????',
+    answer: 'Answer is oops',
+    points: 200,
+    category: 'Space'
+
+  },
+  {
+    id:2,
+    question: 'What????',
+    answer: 'Answer is oops',
+    points: 200,
+    category: 'Space'
+
+  }
+],
   isLoading: false,
   isAuth: false,
   error: null,
