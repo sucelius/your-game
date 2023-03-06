@@ -7,6 +7,7 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
 export function GameBoard() {
+
   const questions = useSelector((state) => state.questions);
 
 

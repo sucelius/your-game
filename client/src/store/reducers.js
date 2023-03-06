@@ -1,12 +1,7 @@
-const initialState = {
-  user: [{
-    id:'123',
-    name:'user',
-    email: 'user@user.ru',
-    password:'123',
-    totalPoints: 0
+import ATypes from "./types";
 
-  }],
+const initialState = {
+  user: null,
   games: [{
     id:1,
     userId:'123',
@@ -61,7 +56,10 @@ const initialState = {
 };
 
 export const reducers = (state = initialState, action) => {
-  switch (action) {
+  switch (action.type) {
+    case ATypes.SET_USER:{
+      return {...state, user: action.payload};
+    }
     default:
       return state;
   }
