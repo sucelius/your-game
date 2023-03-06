@@ -1,7 +1,6 @@
 import './App.css';
 import { Routes, Link, Route, Outlet, useNavigate} from 'react-router-dom'
 import {GameBoard , Login, Registration} from './components'
-import {Button} from "react-bootstrap";
 import {useSelector,useDispatch} from 'react-redux'
 import ATypes from './store/types';
 
@@ -11,7 +10,7 @@ function App() {
   console.log(user);
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const auth =localStorage.getItem('user') 
+  const auth =localStorage.getItem('user')
 
   if (auth) {
     dispatch({type: ATypes.SET_USER, payload: JSON.stringify(localStorage.getItem('user')) })
@@ -27,15 +26,15 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <nav className='mt-2 flex justify-content-end'>
+    <div className="App mx-auto">
+      <nav className='bg-neutral-100 flex px-6 py-2.5 justify-end'>
         {user ? <Link to='/logout'>
-          <Button onClick={logout} type="button">Logout</Button>
+          <button onClick={logout} type="button">Logout</button>
         </Link> : <> <Link to='/signin'>
-          <Button className="me-2" type="button">Sign In</Button>
+          <button className="text-white bg-blue-600 px-5 py-2.5 rounded mr-2" type="button">Sign In</button>
         </Link>
         <Link to='/signup'>
-          <Button type="button">Sign Up</Button>
+          <button className="text-white bg-blue-600 px-5 py-2.5 rounded" type="button">Sign Up</button>
         </Link></>}
       </nav>
       <Routes>
