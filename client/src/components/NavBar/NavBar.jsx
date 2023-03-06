@@ -1,8 +1,11 @@
 import React, {useState} from 'react';
 import {Navbar, Container, Nav, NavDropdown} from 'react-bootstrap';
+import { useSelector } from "react-redux";
 
 export function NavBar() {
-  const [user, setUser] = useState(false)
+ 
+  const user = useSelector((state) => state.user)
+  
   return (
 
     <Navbar bg="light" expand="lg">
