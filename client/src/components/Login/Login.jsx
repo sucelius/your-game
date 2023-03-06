@@ -15,27 +15,27 @@ export default function Login() {
   }
 
   async function formSubmitHandler() {
-    try {
-      const response = await fetch('http://localhost:3001/signin', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        credentials: 'include',
-        body: JSON.stringify(formData),
-      })
-      const result = await response.json();
-      console.log(result);
-      const user = result.name
-      if (user) {
-        localStorage.setItem('user', JSON.stringify(result));
-        dispatch({type: ATypes.SET_USER, payload: result});
-        setFormData({email: '', password: ''});
-        navigate('/');
-      } else {
-        navigate('/signup');
-      }
-    } catch (error) {
-      console.log(error);
-    }
+
+   try {
+     const response = await fetch('http://localhost:3001/signin', {
+       method: 'POST',
+       headers: { 'Content-Type': 'application/json' },
+       credentials: 'include',
+       body: JSON.stringify(formData),
+     })
+     const result = await response.json();
+     const user = result.name
+     if (user) {
+      localStorage.setItem('user', result);
+      dispatch({ type: ATypes.SET_USER, payload: result });
+      setFormData({ email: '',password: '' });
+      navigate('/');
+     }
+     else {navigate('/signup'); }
+   } catch (error) {
+    console.log(error);
+   }
+
   }
 
   return (
