@@ -1,24 +1,27 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import {NewChart} from "../NewChart/NewChart";
+import ATypes from "../../store/types";
 
 export default function Profile() {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const game = useSelector((state) => state.games)
-  console.log(game);
+  const bestPlayers = useSelector((state) => state.bestPlayers)
+
+
   const rightAnswers = game.map(el => el.isRight).filter(el => el === true).length;
   const wrongAnswers = game.map(el => el.isRight).filter(el => el === false).length;
-  console.log(wrongAnswers);
-
-  const[bestPlayer, setBestPlayer] = useState([])
 
   useEffect(() => {
     fetch('/profile', {
       credentials: 'include',
-    }).then(response => response.json())
-    // .then(result => setBestPlayer(result));
+    }).then(response => response.json()).then(result => dispatch({
+      type: ATypes.SET_BEST_PLAYERS,
+      payload: result
+    }))
 
-  })
+  }, [])
 
   // dispatch({
   //   type: ATypes.SERVER_QUESTION_DATA,
@@ -26,7 +29,19 @@ export default function Profile() {
 
   return (
     <div className="container mt-4">
-      <h1 className="my-3">Ваша статистика:</h1>
+      <div className="my-3">
+        <div className="my-4"><h2>Топ-3</h2></div>
+        <table className="w-1/2 mx-auto border border-collapse">
+          <thead>
+            <tr className="border">
+              <th className="border">Имя</th>
+              <th className="border">Очки</th>
+            </tr>
+          </thead>
+          {bestPlayers.map(el=><tr><td className="border">{el.name}</td><td className="border">{el.totalPoints}</td></tr>)}
+        </table>
+      </div>
+      <h1 className="my-3">Ваша статистика: </h1>
       <table className="w-1/2 table-auto mx-auto border border-slate-400">
         <thead>
         <tr className="text-left bg-gray-200">
