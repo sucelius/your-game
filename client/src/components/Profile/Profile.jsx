@@ -26,28 +26,28 @@ export default function Profile() {
 
   return (
     <div className="container mt-4">
-      <h1 className="my-3">Here is Your statistic:</h1>
+      <h1 className="my-3">Ваша статистика:</h1>
       <table className="w-1/2 table-auto mx-auto border border-slate-400">
         <thead>
         <tr className="text-left bg-gray-200">
-          <th className="border border-slate-300 p-2">Name</th>
-          <th className="border border-slate-300 p-2">Points</th>
+          <th className="border border-slate-300 p-2">Категория</th>
+          <th className="border border-slate-300 p-2">Количество</th>
         </tr>
         </thead>
         <tr className="text-left">
-          <td className="border border-slate-300 p-2">Your total score is:</td>
+          <td className="border border-slate-300 p-2">Итого очков:</td>
           <td className="border border-slate-300 p-2">{user.totalPoints}</td>
         </tr>
         <tr className="text-left bg-gray-50">
-          <td className="border border-slate-300 p-2">Total rigth answers:</td>
+          <td className="border border-slate-300 p-2">Правильных ответов:</td>
           <td className="border border-slate-300 p-2">{rightAnswers}</td>
         </tr>
         <tr className="text-left">
-          <td className="border border-slate-300 p-2">Total wrong answers:</td>
+          <td className="border border-slate-300 p-2">Неправильных ответов:</td>
           <td className="border border-slate-300 p-2">{wrongAnswers}</td>
         </tr>
         <tr className="text-left bg-gray-50">
-          <td className="border border-slate-300 p-2">Total answers:</td>
+          <td className="border border-slate-300 p-2">Всего попыток:</td>
           <td className="border border-slate-300 p-2">{rightAnswers + wrongAnswers}</td>
         </tr>
       </table>
