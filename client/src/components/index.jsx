@@ -3,4 +3,6 @@ import {NavBar} from './NavBar/NavBar'
 import Login from './Login/Login'
 import Registration from './registration/Registration'
 import Question from './modal/Modal'
-export {GameBoard,NavBar,Login,Registration,Question}
+import {BarChart} from './BarChart/BarChart'
+import {NewChart} from './NewChart/NewChart'
+export {GameBoard,NavBar,Login,Registration,Question ,BarChart, NewChart }

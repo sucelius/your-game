@@ -13,6 +13,7 @@ const initialState = {
   isLoading: false,
   isAuth: false,
   error: null,
+  data : [0, 0, 0],
 };
 
 console.log(initialState);
@@ -33,6 +34,8 @@ export const reducers = (state = initialState, action) => {
       return el=action.payload
     } else { return el;}
   } )}
+  case ATypes.CHART_DATA :
+    return {...state, data:action.payload.data}
 
     default:
       return state;

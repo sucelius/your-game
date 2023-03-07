@@ -3,7 +3,7 @@ import {useSelector, useDispatch} from "react-redux";
 import ActionTypes from "../../store/types";
 
 
-import {Question} from '../index'
+import {Question, NewChart} from '../index'
 
 export function GameBoard() {
   const dispatch = useDispatch();
@@ -70,6 +70,7 @@ export function GameBoard() {
           })}
         </div>
       </div>
+      <NewChart></NewChart>
     </div>
   );
 }
