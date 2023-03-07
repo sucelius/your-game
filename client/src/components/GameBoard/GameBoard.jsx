@@ -1,6 +1,6 @@
 import React, {useEffect,useState} from "react";
 import {useSelector, useDispatch} from "react-redux";
-import ActionTypes from "../../store/types";
+import ATypes from "../../store/types";
 
 
 import {Question, NewChart} from '../index'
@@ -19,7 +19,7 @@ export function GameBoard() {
       body: JSON.stringify(user)
     })
       .then(response => response.json()).then(result => dispatch({
-      type: ActionTypes.SERVER_QUESTION_DATA,
+      type: ATypes.SERVER_QUESTION_DATA,
       payload: result,
     }))
       .catch((error) => console.log(error))
