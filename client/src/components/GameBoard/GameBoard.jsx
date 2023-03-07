@@ -33,12 +33,12 @@ export function GameBoard() {
     <div className="flex justify-content-center mt-5">
       <div className="d-grid" style={{gridTemplateRows: "1fr 1fr 1fr ", width: '60%'}}>
         <div className="d-grid" style={{gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr"}}>
-          <div>Марвел:</div>
+          <div className="bg-amber-300">Марвел:</div>
 
           {questions.map((question) => {
             if (question.category === "Марвел") {
               return (
-                <div key={question.id}>
+                <div className="bg-green-700" key={question.id}>
                   <Question question={question}>{question.points}</Question>
                 </div>
               );
@@ -46,11 +46,11 @@ export function GameBoard() {
           })}
         </div>
         <div className="d-grid" style={{gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr"}}>
-          <div>Гарри Поттер:</div>
+          <div className="bg-amber-200">Гарри Поттер:</div>
           {questions.map((question) => {
             if (question.category === "Гарри Поттер") {
               return (
-                <div key={question.id}>
+                <div className="bg-green-600" key={question.id}>
                   <Question question={question}>{question.points}</Question>
                 </div>
               );
@@ -58,12 +58,12 @@ export function GameBoard() {
           })}
         </div>
         <div className="d-grid" style={{gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr"}}>
-          <div>Пиво:</div>
+          <div className="bg-amber-300">Пиво:</div>
 
           {questions.map((question) => {
             if (question.category === "Пиво") {
               return (
-                <div key={question.id}>
+                <div className="bg-green-700" key={question.id}>
                   <Question question={question}>{question.points}</Question>
                 </div>
               );
