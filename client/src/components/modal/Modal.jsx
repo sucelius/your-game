@@ -21,7 +21,7 @@ export default function Question({question, setPoints}) {
   }
 
 
-  function hendleAnswer() {
+ async function hendleAnswer() {
     setShow(false)
     const checkAnswer =  gameBoard.filter(el => el.questionId === question.id)[0]
     if (question.answer.toLowerCase() === answer.toLowerCase()) {
@@ -32,6 +32,7 @@ export default function Question({question, setPoints}) {
       user.totalPoints+=question.points
       dispatch({type: ATypes.SET_USER, payload:user})
       setPoints(user.totalPoints)
+      localStorage.setItem('user', JSON.stringify(user));
     } else {
       checkAnswer.isTouch = true;
       checkAnswer.isRight = false; 
@@ -39,7 +40,14 @@ export default function Question({question, setPoints}) {
       user.totalPoints-=question.points
       dispatch({type: ATypes.SET_USER, payload:user})
       setPoints(user.totalPoints)
+      localStorage.setItem('user', JSON.stringify(user));
     }
+    await fetch('/check', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      credentials: 'include',
+      body: JSON.stringify({checkAnswer, points:user.totalPoints})
+    })
 
   };
 
