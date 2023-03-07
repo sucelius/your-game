@@ -23,8 +23,8 @@ export default function Question({question, setPoints}) {
 
   function hendleAnswer() {
     setShow(false)
+    const checkAnswer =  gameBoard.filter(el => el.questionId === question.id)[0]
     if (question.answer.toLowerCase() === answer.toLowerCase()) {
-      const checkAnswer =  gameBoard.filter(el => el.questionId === question.id)[0]
       checkAnswer.isTouch = true;
       checkAnswer.isRight = true;
       console.log(checkAnswer);
@@ -33,8 +33,12 @@ export default function Question({question, setPoints}) {
       dispatch({type: ATypes.SET_USER, payload:user})
       setPoints(user.totalPoints)
     } else {
-      // checkAnswer.isTouch = true;
-      // checkAnswer.isRight = false; 
+      checkAnswer.isTouch = true;
+      checkAnswer.isRight = false; 
+      dispatch({type: ATypes.SERVER_GAME_DATA, payload:checkAnswer })
+      user.totalPoints-=question.points
+      dispatch({type: ATypes.SET_USER, payload:user})
+      setPoints(user.totalPoints)
     }
 
   };
