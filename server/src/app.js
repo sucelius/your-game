@@ -18,8 +18,18 @@ app.use(cors(
   {
     credentials: true,
     origin: 'http://localhost:3000',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
   },
 ));
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.header('Access-Control-Allow-Headers', true);
+  res.header('Access-Control-Allow-Credentials', true);
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  next();
+});
 
 const sessionConfig = {
   name: 'sid',
@@ -32,7 +42,6 @@ const sessionConfig = {
 // записывает в переменную req.session.user данные из прилетевшей куки, если такая же была найдена в кук базе данных.
 // если куки нету или она не найдена в session storage, то req.session.user будет равно unfefined
 app.use(session(sessionConfig));
-
 app.use('/', indexRouter);
 
 app.listen(PORT, () => {

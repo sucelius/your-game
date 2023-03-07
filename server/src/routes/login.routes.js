@@ -14,6 +14,7 @@ router.post('/', async (req, res) => {
       return res.json({ message: 'Неверное имя пользователя или пароль' });
     }
     req.session.user = { id: user.id, name: user.name };
+    console.log(req.session.user)
     req.session.save(() => {
       res.json({ id: user.id, name: user.name });
     });
