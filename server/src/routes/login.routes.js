@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const { User } = require('../../db/models');
 const bcrypt = require('bcrypt');
+const { User } = require('../../db/models');
 
 router.post('/', async (req, res) => {
   try {
@@ -13,10 +13,10 @@ router.post('/', async (req, res) => {
     if (!hashPassword) {
       return res.json({ message: 'Неверное имя пользователя или пароль' });
     }
-    req.session.user = { id: user.id, name: user.name };
-    console.log(req.session.user)
+    req.session.user = { id: user.id, name: user.name, totalPoints: user.totalPoints };
+    console.log(req.session.user);
     req.session.save(() => {
-      res.json({ id: user.id, name: user.name });
+      res.json({ id: user.id, name: user.name, totalPoints: user.totalPoints });
     });
   } catch (error) {
     console.error(error);

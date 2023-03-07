@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect,useState} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import ActionTypes from "../../store/types";
 
@@ -9,9 +9,9 @@ export function GameBoard() {
   const dispatch = useDispatch();
   const questions = useSelector((state) => state.questions);
   const user = useSelector((state) => state.user)
+  const [points, setPoints] = useState(user.totalPoints)
 
   useEffect(() => {
-    // function serverQuestiondata() {
     fetch("/questions", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
@@ -23,14 +23,13 @@ export function GameBoard() {
       payload: result,
     }))
       .catch((error) => console.log(error))
-
-
-    // serverQuestiondata()
-  }, [user]);
+  }, []);
 
 
   return (
+    
     <div className="flex justify-content-center mt-5">
+      {points}
       <div className="d-grid" style={{gridTemplateRows: "1fr 1fr 1fr ", width: '60%'}}>
         <div className="d-grid" style={{gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr"}}>
           <div>Марвел:</div>
@@ -39,7 +38,7 @@ export function GameBoard() {
             if (question.category === "Марвел") {
               return (
                 <div key={question.id}>
-                  <Question question={question}>{question.points}</Question>
+                  <Question setPoints={setPoints} question={question}>{question.points}</Question>
                 </div>
               );
             }

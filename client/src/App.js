@@ -17,7 +17,7 @@ function App() {
 
   useEffect(() => {
     if (auth) {
-      dispatch({type: ATypes.SET_USER, payload: auth})
+      dispatch({type: ATypes.SET_USER, payload: JSON.parse(auth)})
     }
   }, [])
 

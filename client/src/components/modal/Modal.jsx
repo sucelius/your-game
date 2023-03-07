@@ -1,33 +1,44 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Modal} from 'react-bootstrap';
-import {useSelector} from 'react-redux';
+import {useSelector,useDispatch} from 'react-redux';
+import { useResolvedPath } from 'react-router-dom';
+import ATypes from '../../store/types';
 
-export default function Question(question) {
+export default function Question({question, setPoints}) {
   const [show, setShow] = useState(false);
   const [answer, setAnswer] = useState('');
-  const handleClose = () => setShow(false);
+  const dispatch = useDispatch()
   const gameBoard = useSelector((state) => state.games)
 
   const user = useSelector((state) => state.user)
-  console.log('gameBoard', gameBoard)
-  const state = gameBoard.filter(el => el.questionId === question.question.id)[0].isTouch
-  console.log('Quie Id', question.question.id)
-  console.log(state)
+
+  const state = gameBoard.filter(el => el.questionId === question.id)[0].isTouch
+
 
   const start = () => {
     setShow(true);
-    console.log('show')
 
   }
 
 
   function hendleAnswer() {
-    if (question.question.answer.toLowerCase() === answer.toLowerCase()) {
-
+    setShow(false)
+    if (question.answer.toLowerCase() === answer.toLowerCase()) {
+      const checkAnswer =  gameBoard.filter(el => el.questionId === question.id)[0]
+      checkAnswer.isTouch = true;
+      checkAnswer.isRight = true;
+      console.log(checkAnswer);
+      dispatch({type: ATypes.SERVER_GAME_DATA, payload:checkAnswer })
+      user.totalPoints+=question.points
+      dispatch({type: ATypes.SET_USER, payload:user})
+      setPoints(user.totalPoints)
+    } else {
+      // checkAnswer.isTouch = true;
+      // checkAnswer.isRight = false; 
     }
+
   };
 
-// console.log(answer);
   function hendleChange(event) {
     setAnswer(event.target.value)
   }
@@ -36,22 +47,22 @@ export default function Question(question) {
     <div>
       {state ?
         <Button style={{width: '100%', borderRadius: '0', border: '1px solid rgb(255 255 0)'}} type='button'
-                variant="primary" onClick={start} disabled>
-          {question.question.points}
+                variant="primary" disabled>
+          {question.points}
         </Button>
         :
-        <Button style={{width: '100%', borderRadius: '0', border: '1px solid rgb(255 255 0)'}} type='button'
-                variant="primary" onClick={start}>
-          {question.question.points}
+        <Button style={{width: '100%', borderRadius: '0', border: '1px solid rgb(255 255 0)'}} type='button' onClick={start}
+                variant="primary" >
+          {question.points}
         </Button>}
       <Modal
         show={show}
-        onHide={handleClose}
+        
         backdrop="static"
         keyboard={false}
       >
         <div className="d-flex justify-content-center">
-          <h1 className="mx-16 my-12">{question.question.question}</h1>
+          <h1 className="mx-16 my-12">{question.question}</h1>
         </div>
         <div className='d-flex justify-content-center'>
           <input
@@ -59,7 +70,7 @@ export default function Question(question) {
             onChange={hendleChange} type='text' value={answer}/>
         </div>
         <div className="mx-auto my-4">
-          <button className="bg-blue-600 text-white py-2.5 px-5 rounded" onClick={handleClose} variant="primary">Ответить
+          <button className="bg-blue-600 text-white py-2.5 px-5 rounded" onClick={hendleAnswer} variant="primary">Ответить
           </button>
         </div>
       </Modal>
