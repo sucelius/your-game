@@ -17,7 +17,7 @@ function App() {
 
   useEffect(() => {
     if (auth) {
-      dispatch({ type: ATypes.SET_USER, payload: auth })
+      dispatch({ type: ATypes.SET_USER, payload: JSON.parse(auth) })
     }
   }, [])
 
@@ -35,9 +35,9 @@ function App() {
   return (
     <div className="App mx-auto">
       <nav className='bg-neutral-100 flex px-6 py-2.5 justify-end'>
-        {user ?          <> <Link to='/profile'>
-            <button className="text-white bg-blue-600 px-5 py-2.5 rounded" type="button">Profile</button>
-          </Link> 
+        {user ? <> <Link to='/profile'>
+          <button className="text-white bg-blue-600 px-5 py-2.5 rounded" type="button">Profile</button>
+        </Link>
           <button onClick={logout} type="button">Logout</button> </>
           : <> <Link to='/signin'>
             <button className="text-white bg-blue-600 px-5 py-2.5 rounded mr-2" type="button">Sign In</button>

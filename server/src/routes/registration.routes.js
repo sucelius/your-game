@@ -17,7 +17,7 @@ router.post('/', async (req, res) => {
     req.session.user = { id: user.id, name: user.name };
     req.session.save();
     console.log(user);
-    res.json({ id: user.id, name: user.name });
+    res.json({ id: user.id, name: user.name, totalPoints: user.totalPoints });
   } catch (error) {
     res.json({ message: 'Регистрация не прошла' });
   }

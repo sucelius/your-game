@@ -1,9 +1,10 @@
 const router = require('express').Router();
-const { Games } = require('../../db/models');
+const { Game, User } = require('../../db/models');
 
-router.post('/endTimer', (req, res) => {
- const {questionId, userId} = req.body
- console.log(questionId, userId)
+router.post('/', async (req, res) => {
+  const { checkAnswer, points } = req.body;
+  await Game.update({ isRight: checkAnswer.isRight, isTouch: checkAnswer.isTouch }, { where: { id: checkAnswer.id } });
+  await User.update({ totalPoints: points }, { where: { id: checkAnswer.userId } });
 });
 
 module.exports = router;

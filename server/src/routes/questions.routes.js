@@ -1,10 +1,10 @@
 const router = require('express').Router();
 // const bcrypt = require('bcrypt');
-const {Question, Game} = require('../../db/models');
+const { Question, Game } = require('../../db/models');
 
 router.post('/', async (req, res) => {
-  const {id} = req.body
-  console.log('REQ-Body->>', id)
+  const { id } = req.body;
+  console.log('REQ-Body->>', id);
   try {
     const questions = await Question.findAll({
       raw: true,
@@ -12,20 +12,21 @@ router.post('/', async (req, res) => {
     });
 
     // if(req.session?.user?.id){
-
+    // const gameBoard = [];
     const gameQuestions = [...questions];
     gameQuestions.forEach(async (el) => {
-      await Game.findOrCreate({where: {userId: id, questionId: el.id}, defaults: {isTouch: false}});
+      // const [a, b] =
+      await Game.findOrCreate({ where: { userId: id, questionId: el.id }, defaults: { isTouch: false } });
+      // gameBoard.push(a);
     });
     const gameBoard = await Game.findAll({
-      where: {userId: id},
+      where: { userId: id },
       raw: true,
       nest: true,
     });
     // }
 
-
-    res.json({questions, gameBoard});
+    res.json({ questions, gameBoard });
   } catch (error) {
     console.log('question error', error);
   }
