@@ -23,7 +23,7 @@ function App() {
 
 
   async function logout() {
-    const response = await fetch('http://localhost:3001/logout', {credentials: 'include'})
+    const response = await fetch('/logout', {credentials: 'include'})
     const result = await response.json()
     if (result) {
       localStorage.clear()
@@ -45,7 +45,7 @@ function App() {
           </Link></>}
       </nav>
       <Routes>
-        <Route path="/" element={<GameBoard/>}/>
+        <Route path="/" element={user ? <GameBoard/> : <Login />}/>
         <Route path="/signin" element={<Login/>}/>
         <Route path="/signup" element={<Registration/>}/>
       </Routes>

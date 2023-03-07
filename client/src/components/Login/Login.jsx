@@ -17,7 +17,7 @@ export default function Login() {
   async function formSubmitHandler() {
 
    try {
-     const response = await fetch('http://localhost:3001/signin', {
+     const response = await fetch('/signin', {
        method: 'POST',
        headers: { 'Content-Type': 'application/json' },
        credentials: 'include',
