@@ -6,6 +6,7 @@ router.get('/', async (req, res) => {
     order: [
       ['totalPoints', 'DESC'],
     ],
+    limit: 3,
   });
   res.json(getUsers);
 });
