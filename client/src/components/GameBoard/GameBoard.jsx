@@ -3,7 +3,7 @@ import {useSelector, useDispatch} from "react-redux";
 import ATypes from "../../store/types";
 
 
-import {Question, NewChart} from '../index'
+import {Question} from '../index'
 
 export function GameBoard() {
   const dispatch = useDispatch();
@@ -27,13 +27,13 @@ export function GameBoard() {
 
 
   return (
-    
-    <div className="flex justify-content-center mt-5">
-      {points}
-      <div className="d-grid" style={{gridTemplateRows: "1fr 1fr 1fr ", width: '60%'}}>
-        <div className="d-grid" style={{gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr"}}>
-          <div className="bg-amber-300">Марвел:</div>
 
+    <div className="flex flex-col container mt-5">
+      <div className="my-4">Итого очков: {points>=0 ? <span className="font-bold text-green-600">{points}</span> : <span className="font-bold text-red-600">{points}</span>}</div>
+
+      <div className="w-full" style={{gridTemplateRows: "1fr 1fr 1fr ", width: '100%'}}>
+        <div className="d-grid" style={{gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr"}}>
+          <div className="bg-amber-300 pt-2">Марвел:</div>
           {questions.map((question) => {
             if (question.category === "Марвел") {
               return (
@@ -45,7 +45,7 @@ export function GameBoard() {
           })}
         </div>
         <div className="d-grid" style={{gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr"}}>
-          <div className="bg-amber-200">Гарри Поттер:</div>
+          <div className="bg-amber-200 pt-2">Гарри Поттер:</div>
           {questions.map((question) => {
             if (question.category === "Гарри Поттер") {
               return (
@@ -57,7 +57,7 @@ export function GameBoard() {
           })}
         </div>
         <div className="d-grid" style={{gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr"}}>
-          <div className="bg-amber-300">Пиво:</div>
+          <div className="bg-amber-300 pt-2">Пиво:</div>
 
           {questions.map((question) => {
             if (question.category === "Пиво") {
@@ -70,7 +70,6 @@ export function GameBoard() {
           })}
         </div>
       </div>
-      <NewChart></NewChart>
     </div>
   );
 }
