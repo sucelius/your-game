@@ -7,12 +7,10 @@ const initialState = {
     userId:'123',
     questionId:1,
     isRight:null,
-    isTouch:false
+    isTouch:false,
   }],
   questions: [],
-  isLoading: false,
-  isAuth: false,
-  error: null,
+  bestPlayers: [],
 };
 
 console.log(initialState);
@@ -33,6 +31,8 @@ export const reducers = (state = initialState, action) => {
       return el=action.payload
     } else { return el;}
   } )}
+  case ATypes.SET_BEST_PLAYERS:
+    return {...state, bestPlayers: action.payload}
 
     default:
       return state;

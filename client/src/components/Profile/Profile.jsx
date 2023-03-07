@@ -1,27 +1,25 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import ATypes from '../../store/types';
 
 export default function Profile() {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const game = useSelector((state) => state.games)
-  console.log(game);
+  const bestPlayers = useSelector((state) => state.bestPlayers)
+
   const rightAnswers = game.map(el => el.isRight).filter(el => el === true).length;
   const wrongAnswers = game.map(el => el.isRight).filter(el => el === false).length;
-  console.log(wrongAnswers);
-
-  const[bestPlayer, setBestPlayer] = useState([])
 
   useEffect(() => {
     fetch('/profile', {
       credentials: 'include',
-    }).then(response => response.json())
-    // .then(result => setBestPlayer(result));
+    }).then(response => response.json()).then(result => dispatch({
+      type: ATypes.SET_BEST_PLAYERS,
+      payload: result
+    }))
 
-  })
-
-  // dispatch({
-  //   type: ATypes.SERVER_QUESTION_DATA,
-  //   payload: result,
+  }, [])
 
   return (
     <div>
@@ -51,14 +49,15 @@ export default function Profile() {
             </div>
             <div>
               <li>
-                <ul>
-                    {/* List of the best players:
-                    {bestPlayer.map(player => 
-                      <li>
-
-                      </li>
-                      )} */}
-                </ul>
+                <ol>
+                    List of the best players:
+                    {bestPlayers.map(player => 
+                    <li>
+                      <p>Player name: {player.name}</p>
+                      <p>Total points: {player.totalPoints}</p>
+                    </li>
+                      )}
+                </ol>
               </li>
             </div>
           </ul>
