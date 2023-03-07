@@ -10,6 +10,7 @@ const initialState = {
     isTouch:false,
   }],
   questions: [],
+  data : [0, 0, 0],
   bestPlayers: [],
 };
 
@@ -31,8 +32,13 @@ export const reducers = (state = initialState, action) => {
       return el=action.payload
     } else { return el;}
   } )}
+
+  case ATypes.CHART_DATA :
+    return {...state, data:action.payload.data}
+
   case ATypes.SET_BEST_PLAYERS:
     return {...state, bestPlayers: action.payload}
+
 
     default:
       return state;
